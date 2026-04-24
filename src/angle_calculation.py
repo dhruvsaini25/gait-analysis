@@ -1,0 +1,19 @@
+import numpy as np
+
+def calculate_angle(a, b, c):
+    a = np.array(a)
+    b = np.array(b)
+    c = np.array(c)
+
+    ba = a - b
+    bc = c - b
+
+    # Avoid division crash
+    if np.linalg.norm(ba) == 0 or np.linalg.norm(bc) == 0:
+        return 0
+
+    cosine_angle = np.dot(ba, bc) / (np.linalg.norm(ba) * np.linalg.norm(bc))
+    cosine_angle = np.clip(cosine_angle, -1.0, 1.0)
+
+    angle = np.arccos(cosine_angle)
+    return np.degrees(angle)
